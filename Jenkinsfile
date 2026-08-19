@@ -41,7 +41,7 @@ pipeline {
         stage('Deploy to AWS') {
     steps {
         bat '''
-            ssh -i "C:\\ProgramData\\Jenkins\\.jenkins\\ec2-key.pem" -o StrictHostKeyChecking=no ubuntu@13.233.101.76 "docker pull manjula152792/employee-api && docker stop employee-api-container || true && docker rm employee-api-container || true && docker run -d --name employee-api-container -p 8080:8080 manjula152792/employee-api"
+            ssh -i "C:\\ProgramData\\Jenkins\\.jenkins\\employee-api.pem" -o StrictHostKeyChecking=no ubuntu@13.233.101.76 "docker pull manjula152792/employee-api && docker stop employee-api-container || true && docker rm employee-api-container || true && docker run -d --name employee-api-container -p 8080:8080 manjula152792/employee-api"
         '''
     }
 }
