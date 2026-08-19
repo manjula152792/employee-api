@@ -42,7 +42,7 @@ pipeline {
     steps {
         sshagent(['ec2-ssh-key']) {
             bat '''
-                ssh -o StrictHostKeyChecking=no ubuntu@13.233.101.76 "docker pull YOUR-DOCKERHUB-USERNAME/employee-api:1.0 && docker stop employee-api-container || true && docker rm employee-api-container || true && docker run -d --name employee-api-container -p 8080:8080 YOUR-DOCKERHUB-USERNAME/employee-api:1.0"
+                ssh -o StrictHostKeyChecking=no ubuntu@13.233.101.76 "docker pull manjula152792/employee-api && docker stop employee-api-container || true && docker rm employee-api-container || true && docker run -d --name employee-api-container -p 8080:8080 manjula152792/employee-api"
             '''
         }
     }
