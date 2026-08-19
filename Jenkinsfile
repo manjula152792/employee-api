@@ -40,9 +40,13 @@ pipeline {
         }
         stage('Deploy to AWS') {
     steps {
-        sshagent(['ec2-ssh-key']) {
+        withCredentials([sshUserPrivateKey(
+            credentialsId: 'ec2-ssh-key',
+            keyFileVariable: 'SSH_KEY',
+            usernameVariable: 'SSH_USER'
+        )]) {
             bat '''
-                ssh -o StrictHostKeyChecking=no ubuntu@13.233.101.76 "docker pull manjula152792/employee-api && docker stop employee-api-container || true && docker rm employee-api-container || true && docker run -d --name employee-api-container -p 8080:8080 manjula152792/employee-api"
+                ssh -i "%SSH_KEY%" -o StrictHostKeyChecking=no %SSH_USER%@13.233.101.76 "docker pull manjula152792/employee-api && docker stop employee-api-container || true && docker rm employee-api-container || true && docker run -d --name employee-api-container -p 8080:8080 manjula152792/employee-api"
             '''
         }
     }
